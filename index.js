@@ -529,6 +529,7 @@ function socat(id) {
 				player["state"] = 0
 				player = setupPlayer(current_file)
 			}
+				else if ( command == "skipping" ) player = setupPlayer(argument)
 		}
 	}
 })
