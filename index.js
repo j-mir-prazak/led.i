@@ -514,6 +514,7 @@ function socat(id) {
 				var argument = split[1].replace(/;.*/, "")
 				if (command == "open") player = setupPlayer(argument)
 				if (command == "pause" && player && player["player"].open ) {
+					console.log("player " + player["state"])
 					if (argument == 1 && player["state"] == 0) {
 						player["state"] = 1
 						player["player"].pause()
