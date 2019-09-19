@@ -613,7 +613,7 @@ function setupPlayer(argument) {
 
 				 if (string[i].length > 0 && string[i].match(/Starting playback/) )
 				{
-					// spawner.spawnSync('bash', ['-c', './sendOverTCP.sh \"114 press\"'])
+					spawner.spawnSync('bash', ['-c', './sendOverTCP.sh \"114 press\"'])
 					// player["player"].pause()
 				}
 

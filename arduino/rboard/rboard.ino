@@ -18,19 +18,25 @@ void setup()
  pinMode(4, OUTPUT);
  pinMode(9, OUTPUT);
  pinMode(6, OUTPUT);
- //delay(2500);
+ delay(200);
  digitalWrite(2, HIGH);
  digitalWrite(3, HIGH);
  digitalWrite(4, HIGH);
  digitalWrite(9, HIGH);
  digitalWrite(6, HIGH);
- //delay(2500);
+ delay(200);
  digitalWrite(2, LOW);
  digitalWrite(3, LOW);
  digitalWrite(4, LOW);
  digitalWrite(9, LOW);
  digitalWrite(6, LOW);
- //delay(5000);
+ delay(200);
+ digitalWrite(2, HIGH);
+ digitalWrite(3, HIGH);
+ digitalWrite(4, HIGH);
+ digitalWrite(9, HIGH);
+ digitalWrite(6, HIGH);
+ delay(200);
 }
 
 String serialInput = "";
