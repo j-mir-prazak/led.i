@@ -22,19 +22,19 @@ void setup()
  digitalWrite(2, HIGH);
  digitalWrite(3, HIGH);
  digitalWrite(4, HIGH);
- digitalWrite(9, HIGH);
+ digitalWrite(9, LOW);
  digitalWrite(6, HIGH);
  delay(200);
  digitalWrite(2, LOW);
  digitalWrite(3, LOW);
  digitalWrite(4, LOW);
- digitalWrite(9, LOW);
+ digitalWrite(9, HIGH);
  digitalWrite(6, LOW);
  delay(200);
  digitalWrite(2, HIGH);
  digitalWrite(3, HIGH);
  digitalWrite(4, HIGH);
- digitalWrite(9, HIGH);
+ digitalWrite(9, LOW);
  digitalWrite(6, HIGH);
  delay(200);
 }
