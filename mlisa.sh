@@ -33,7 +33,7 @@ function looping {
 	  echo ""
 	  echo ""
 
-		amixer -c 0 set Speaker 90%
+		amixer -c 1 set Speaker 90%
 
 		./socatcleaner.sh
 		./cleanup.sh
