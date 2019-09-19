@@ -16,7 +16,7 @@ process.on('SIGINT',  function(){
 	 for (var i = 0; i < pids.length; i++) {
 		if (isrunning(pids[i])){
 		console.log("KILLING: " + pids[i])
-		process.kill(-pids[i], 0)
+		if ( process.kill(pids[i], 0 ) ) process.kill( pids[i] )
 		}
  	}
 	 process.exit(0);
@@ -36,6 +36,17 @@ function cleanPID(pid) {
 		}
 	}
 }
+
+function somethingSUP() {
+			somethingsup = setTimeout(function(){
+			console.log("something is up. closing.")
+			process.exit(1)
+		}, (3600/2)*1000)
+}
+
+var somethingsup;
+somethingSUP();
+
 
 var xinputs = {};
 var presenter = 0;
@@ -66,7 +77,7 @@ ls("/dev/tty*")
 // if (player) console.log("player state: " + player["state"])
 presenter_check()
 devices_status()
-}, 3000)
+}, 5000)
 ls("/dev/tty*")
 // console.log("------------------")
 // console.log("ttys:")
@@ -603,6 +614,8 @@ function setupPlayer(argument) {
 
 	if ( player["player"].process ) {
 
+		clearTimeout(somethingsup)
+
 		player["player"].process.stdout.on('data', (data) => {
 			var decoder = new StringDecoder('utf-8')
 			var string = decoder.write(data)
@@ -637,6 +650,10 @@ function setupPlayer(argument) {
 		// spawner.spawnSync('bash', ['-c', './sendOverTCP.sh \"113 double\"'])
 		console.log("playback ended")
 		cleanPID(pid)
+
+		somethingSUP();
+
+
 	}.bind(null, pid))
 
 return player
