@@ -53,6 +53,8 @@ var player;
 var current_file;
 var qlctimeout;
 
+var filename = ""
+
 setInterval(function(){
 ls("/dev/tty*")
 // console.log("------------------")
@@ -216,10 +218,10 @@ function devices_status() {
 	}
 	if ( enttek && enttek != ent ) {
 		ent = "loaded"
-		console.log("entek change")
+		// console.log("entek change")
 	}
 	if ( arduino != ard ) {
-		console.log("arduino change")
+		// console.log("arduino change")
 		pids.push(spawner.spawn('bash', ['-c', './sendOverTCP.sh \"' + "ard " + ard + '\"']).pid)
 	}
 
@@ -231,8 +233,8 @@ function devices_status() {
 	// if ( ent ) console.log( "enttek is " + enttek )
 	// if ( ard ) console.log( "arduino is " + arduino )
 
-	console.log( "pd down: " + ( ! pd || pd.exitCode !== null || pd.signalCode !== null ) )
-	console.log( "qlc down: " + ( ! qlc || qlc.exitCode !== null  || qlc.signalCode !== null ) )
+	// console.log( "pd down: " + ( ! pd || pd.exitCode !== null || pd.signalCode !== null ) )
+	// console.log( "qlc down: " + ( ! qlc || qlc.exitCode !== null  || qlc.signalCode !== null ) )
 
 	// console.log("ent + ard: " + ( enttek && arduino ))
 	// console.log("pd running: " + pd_running )
@@ -506,31 +508,56 @@ function socat(id) {
 	tty_cat.stdout.on('data', (data) => {
 		var string = decoder.write(data)
 		string=string.split(/\r?\n/)
+		console.log("string:"+ string)
 		for( var i = 0; i < string.length; i++) {
 			if ( string[i].length > 0 && string[i].match(/.*\-.*/) ) {
-				var split = string[i].split("-");
-				console.log(split)
-				var command = split[0]
-				var argument = split[1].replace(/;.*/, "")
-				if (command == "open") player = setupPlayer(argument)
-				if (command == "pause" && player && player["player"].open ) {
-					console.log("player " + player["state"])
-					if (argument == 1 && player["state"] == 0) {
-						player["state"] = 1
-						player["player"].pause()
-					}
-					else if (argument == 0 && player["state"] == 1)	{
+				var tcp = string[i].split(/,/)
+
+
+				for ( var j = 0; j < tcp.length; j++ ) {
+
+
+					if ( tcp[j].length > 0 ) {
+						console.log(j)
+						console.log(tcp[j])
+
+						var split = string[i].split("-");
+						var command = split[0]
+						var argument = split[1].replace(/;.*/, "")
+						if (command == "open") {
+							current_file = argument
+							player = setupPlayer(current_file)
+							}
+						if (command == "pause" && player && player["player"].open ) {
+							console.log("player " + player["state"])
+							if (argument == 1 && player["state"] == 0) {
+								player["state"] = 1
+								player["player"].pause()
+							}
+							else if (argument == 0 && player["state"] == 1)	{
+								player["state"] = 0
+								player["player"].pause()
+							}
+						}
+						if (command == "restart" && player && player["player"].open ) {
+						player["player"].quit()
 						player["state"] = 0
-						player["player"].pause()
+						player = setupPlayer(current_file)
 					}
+						else if ( command == "restart" && current_file && ( player == false || player["player"].open == false) ) player = setupPlayer(current_file)
+
+
+
+					}
+
 				}
-				if (command == "skipping" && player && player["player"].open ) {
-				player["player"].quit()
-				player["state"] = 0
-				player = setupPlayer(current_file)
-			}
-				else if ( command == "skipping" ) player = setupPlayer(argument)
+
+
 		}
+
+
+
+
 	}
 })
 
@@ -562,7 +589,7 @@ function setupPlayer(argument) {
 		console.log(argument + " exists")
 		current_file = argument
 		var player = {
-		"player": omx("pd/" + argument, 85),
+		"player": omx("pd/" + current_file, 85),
 		"volume": 85,
 		"state":0
 		}
@@ -586,7 +613,7 @@ function setupPlayer(argument) {
 
 				 if (string[i].length > 0 && string[i].match(/Starting playback/) )
 				{
-					spawner.spawnSync('bash', ['-c', './sendOverTCP.sh \"114 press\"'])
+					// spawner.spawnSync('bash', ['-c', './sendOverTCP.sh \"114 press\"'])
 					// player["player"].pause()
 				}
 
