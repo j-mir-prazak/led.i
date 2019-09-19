@@ -133,8 +133,8 @@ done
 
 chmod 0777 -R ./*
 
-echo -e "PAUSING. FOR 1M."
-sleep 55
+echo -e "PAUSING. FOR 30s."
+sleep 25
 echo -e "5"
 sleep 1
 echo -e "4"
