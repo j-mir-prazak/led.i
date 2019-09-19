@@ -587,7 +587,7 @@ function setupPlayer(argument) {
 					// spawner.spawnSync('bash', ['-c', './sendOverTCP.sh \"114 press\"'])
 				}
 
-				else if (string[i].length > 0 && string[i].match(/.*5B(K*)/))console.log(string[i])
+				else if (string[i].length > 0 && string[i].match(/.*5B(K*)/)) console.log(string[i])
 				// else console.log(string[i])
 			}
 		});

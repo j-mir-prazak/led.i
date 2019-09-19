@@ -23,6 +23,7 @@ trap terminate SIGINT
 trap terminate SIGTERM
 
 
+
 function looping {
 	while true; do
 	  echo -e "\e[34m"
@@ -31,6 +32,9 @@ function looping {
 	  echo "-----------------------------"
 	  echo ""
 	  echo ""
+
+		amixer -c 0 set PCM 95%
+
 		./socatcleaner.sh
 		./cleanup.sh
 		node index.js &
