@@ -228,15 +228,15 @@ function devices_status() {
 	arduino = ard;
 	if ( ttys[ard] ) ttys[ard]["device"] = "arduino"
 
-	if ( ent ) console.log( "enttek is " + enttek )
-	if ( ard ) console.log( "arduino is " + arduino )
+	// if ( ent ) console.log( "enttek is " + enttek )
+	// if ( ard ) console.log( "arduino is " + arduino )
 
 	console.log( "pd down: " + ( ! pd || pd.exitCode !== null || pd.signalCode !== null ) )
 	console.log( "qlc down: " + ( ! qlc || qlc.exitCode !== null  || qlc.signalCode !== null ) )
 
-	console.log("ent + ard: " + ( enttek && arduino ))
-	console.log("pd running: " + pd_running )
-	console.log("qlc running: " + qlc_running )
+	// console.log("ent + ard: " + ( enttek && arduino ))
+	// console.log("pd running: " + pd_running )
+	// console.log("qlc running: " + qlc_running )
 
 	if ( enttek && arduino && pd_running == false && qlc_running == false ) {
 		pd_running = true
