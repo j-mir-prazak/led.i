@@ -614,6 +614,7 @@ function setupPlayer(argument) {
 
 	if ( player["player"].process ) {
 
+		console.log("something's not up.")
 		clearTimeout(somethingsup)
 
 		player["player"].process.stdout.on('data', (data) => {
