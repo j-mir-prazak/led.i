@@ -44,7 +44,13 @@ function looping {
 		wait
 		echo ""
 	  counter=$(expr $counter + 1)
+
 	  echo "Error. Retrying. Rerun #$counter."
+
+		if [[ $counter -eq 10 ]]; then
+				echo "something's really up."
+				sudo reboot
+		fi
 	  echo  ""
 	  sleep 5
 	done
