@@ -41,7 +41,7 @@ function somethingSUP() {
 			somethingsup = setTimeout(function(){
 			console.log("something is up. closing.")
 			process.exit(1)
-		}, (3600/2)*1000)
+		}, (120)*1000)
 }
 
 var somethingsup;
