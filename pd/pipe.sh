@@ -8,7 +8,7 @@ then
 	if [ ! -z $1 ]
 	then
 	command="$1"
-	cat "$command:$2:$3:$4" > "$tty" &
+	(echo "$command:$2:$3:$4" | cat - > "$tty") &
 	proc=$!
 	sleep 0.001
 	kill $proc > /dev/null 2>&1
