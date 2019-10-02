@@ -149,6 +149,6 @@ echo -e "\e[31mLIFT OFF."
 echo -e "\e[39m"
 
 
-./mlisa.sh & PROC1=$!
+./ledi.sh & PROC1=$!
 
 wait

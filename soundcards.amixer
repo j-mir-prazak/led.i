@@ -1,0 +1,6 @@
+echo "setting volumes."
+cards=$(cat /proc/asound/cards | grep USBSC* | sed -r 's/ ([[:digit:]]).*/\1/');
+for i in $cards; do
+	echo "setting volume for card $i."
+	amixer -c$i set 'Speaker' 15%;
+done

@@ -3,7 +3,7 @@
 // int pin3 = 3;
 // int pin4 = 4;
 
- int pins[4] = {2,3,4,9};
+ int pins[4] = {4,5,6,9};
 
  char sinput;
 
@@ -16,29 +16,30 @@ void setup()
  pinMode(2, OUTPUT);
  pinMode(3, OUTPUT);
  pinMode(4, OUTPUT);
+ pinMode(5, OUTPUT);
  pinMode(9, OUTPUT);
  pinMode(6, OUTPUT);
  delay(200);
  digitalWrite(2, HIGH);
- digitalWrite(3, HIGH);
+ digitalWrite(5, HIGH);
  digitalWrite(4, HIGH);
  digitalWrite(9, LOW);
  digitalWrite(6, HIGH);
  delay(200);
  digitalWrite(2, LOW);
- digitalWrite(3, LOW);
+ digitalWrite(5, LOW);
  digitalWrite(4, LOW);
  digitalWrite(9, HIGH);
  digitalWrite(6, LOW);
  delay(200);
  digitalWrite(2, HIGH);
- digitalWrite(3, HIGH);
+ digitalWrite(5, HIGH);
  digitalWrite(4, HIGH);
  digitalWrite(9, LOW);
  digitalWrite(6, HIGH);
  delay(200);
   digitalWrite(2, LOW);
- digitalWrite(3, LOW);
+ digitalWrite(5, LOW);
  digitalWrite(4, LOW);
  digitalWrite(9, HIGH);
  digitalWrite(6, LOW);
@@ -69,8 +70,14 @@ void loop()
            // String inp = String(serialInput[i]);
            // if (inp == "") Serial.print(serialInput[i]);
             
-            switchPin(pins[i], serialInput[i]);
+            if ( i == 1 ) {
+              switchPin(pins[i], serialInput[0]);
             }
+            else {
+              switchPin(pins[i], serialInput[i]);
+            }
+
+           }
           
         }
         serialInput = ""; //clears variable for new input
@@ -80,10 +87,10 @@ void loop()
         serialInput += sinput; //makes the string readString
       }
      }
-//   Serial.print(array1[0]);
-//   Serial.print(array1[1]);
-//      Serial.print(array1[2]);
-//      Serial.println(array1[3]);
+     //Serial.print(pins[0]);
+     //Serial.print(pins[1]);
+     //Serial.print(pins[2]);
+     //Serial.println(pins[3]);
       
   }
   
