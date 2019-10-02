@@ -3,6 +3,6 @@ if [ ! -z $1 ]
 then
 	tty=$1
 	#sane = basic settigs; -echo = no loopback echo of recieved data
-	stty sane -hupcl speed 115200 -F "$tty"
+	stty sane -echo -hupcl speed 115200 -F "$tty"
 	#2>&1 1>/dev/null
 fi
