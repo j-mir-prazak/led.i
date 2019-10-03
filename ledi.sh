@@ -34,7 +34,7 @@ function looping {
 	  echo ""
 
 		amixer -c 1 set Speaker 78%
-
+		amixer -c 1 set  'Mic' 0%
 		./socatcleaner.sh
 		./cleanup.sh
 		DISPLAY=:1 node index.js &

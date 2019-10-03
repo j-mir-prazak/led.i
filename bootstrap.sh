@@ -9,7 +9,7 @@ cd "$CURDIR"
 
 chmod 0777 -R *
 
-import_folder="panda_update"
+import_folder="rpi_update"
 
 ### DECLARATION PART
 
