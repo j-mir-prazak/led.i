@@ -143,7 +143,7 @@ function handletty(tty) {
 }
 
 function pdl2ork() {
-	var pd = spawner.spawn("bash", new Array("-c", "pd-l2ork -console -nogui -open pd/stereo_in.pd -send \"startup_path $(pwd)/pd; startup_device " + arduino + "\" -audiobuf 64"), {detached: false})
+	var pd = spawner.spawn("bash", new Array("-c", "pd-l2ork -console -nogui -open pd/stereo_in.pd -send \"startup_path $(pwd)/pd; startup_device " + arduino + "\" -audiobuf 64 -audioindev 4 -audioindev 3 -inchannels 2 -outchannels 2"), {detached: false})
 	var decoder = new StringDecoder('utf-8')
 	pids.push(pd["pid"])
 
