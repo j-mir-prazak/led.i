@@ -1,4 +1,4 @@
-#N canvas 535 257 1005 639 10;
+#N canvas 535 313 1005 639 10;
 #X obj 525 -103 netreceive 9988;
 #X obj 148 -88 route key;
 #X obj 183 10 route press;
@@ -34,13 +34,13 @@
 #X obj 420 -51 print;
 #X obj 525 33 route 114;
 #X obj 685 34 route 113;
-#X obj 884 -42 route ard;
-#X obj 884 69 s ard;
 #X obj 942 32 print;
+#X obj 884 69 s startup_device;
+#X obj 884 -42 route startup_device;
 #X connect 0 0 32 0;
 #X connect 0 0 33 0;
 #X connect 0 0 34 0;
-#X connect 0 0 35 0;
+#X connect 0 0 37 0;
 #X connect 1 0 2 0;
 #X connect 1 0 6 0;
 #X connect 2 0 3 0;
@@ -77,5 +77,5 @@
 #X connect 33 0 29 0;
 #X connect 34 0 26 0;
 #X connect 34 0 27 0;
-#X connect 35 0 36 0;
-#X connect 35 0 37 0;
+#X connect 37 0 35 0;
+#X connect 37 0 36 0;

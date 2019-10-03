@@ -45,7 +45,7 @@ function somethingSUP() {
 }
 
 var somethingsup;
-somethingSUP();
+// somethingSUP();
 
 
 var xinputs = {};
@@ -67,25 +67,28 @@ var qlctimeout;
 var filename = ""
 
 setInterval(function(){
-ls("/dev/tty*")
-// console.log("------------------")
-// console.log("ttys:")
-// console.log(ttys)
-// console.log("presenter: " + presenter)
-// console.log("arduino: " + arduino)
+ls("/dev/ttyUSB*")
+console.log("------------------")
+console.log("ttys:")
+console.log(ttys)
+console.log("pd: " + pd_running)
+console.log("arduino: " + arduino)
 // console.log("enttek: " + enttek)
 // if (player) console.log("player state: " + player["state"])
-presenter_check()
+// presenter_check()
 devices_status()
-}, 5000)
-ls("/dev/tty*")
-// console.log("------------------")
-// console.log("ttys:")
-// console.log(ttys)
+}, 2000)
+ls("/dev/ttyUSB*")
+
+console.log("------------------")
+console.log("ttys:")
+console.log(ttys)
 // console.log("presenter: " + presenter)
-// console.log("arduino: " + arduino)
+console.log("arduino: " + arduino)
 // console.log("enttek: " +enttek)
-presenter_check()
+
+// presenter_check()
+
 pids.push(spawner.spawn('bash', ['-c', './socatcleaner.sh']).pid)
 
 function udev(tty) {
@@ -140,7 +143,7 @@ function handletty(tty) {
 }
 
 function pdl2ork() {
-	var pd = spawner.spawn("bash", new Array("-c", "pd-l2ork -verbose -noaudio -open pd/pardu_player.pd -send \"ard "+ arduino + "\""), {detached: true})
+	var pd = spawner.spawn("bash", new Array("-c", "pd-l2ork -console -nogui -open pd/stereo_in.pd -send \"startup_path $(pwd)/pd; startup_device " + arduino + "\" -audiobuf 64"), {detached: false})
 	var decoder = new StringDecoder('utf-8')
 	pids.push(pd["pid"])
 
@@ -148,6 +151,7 @@ function pdl2ork() {
 	  var string = decoder.write(data)
 		string=string.split(/\r?\n/)
 		for( var i = 0; i < string.length; i++) {
+		 	console.log(string[i])
 			pd_running = true;
 
 			}
@@ -157,6 +161,7 @@ function pdl2ork() {
 		var string = decoder.write(data)
 		string=string.split(/\r?\n/)
 		for( var i = 0; i < string.length; i++) {
+			console.log(string[i])
 			pd_running = true;
 			}
 	  // console.log(`stderr: ${data}`)
@@ -232,8 +237,9 @@ function devices_status() {
 		// console.log("entek change")
 	}
 	if ( arduino != ard ) {
-		// console.log("arduino change")
-		pids.push(spawner.spawn('bash', ['-c', './sendOverTCP.sh \"' + "ard " + ard + '\"']).pid)
+		console.log("arduino change")
+		pids.push(spawner.spawn('bash', ['-c', './sendOverTCP.sh \"' + "statup_device " + ard + '\"']).pid)
+
 	}
 
 	enttek = ent;
@@ -251,7 +257,7 @@ function devices_status() {
 	// console.log("pd running: " + pd_running )
 	// console.log("qlc running: " + qlc_running )
 
-	if ( enttek && arduino && pd_running == false && qlc_running == false ) {
+	if ( arduino && pd_running == false && qlc_running == false ) {
 		pd_running = true
 		pd = pdl2ork()
 	}
@@ -264,14 +270,16 @@ function devices_status() {
 				// process.kill(-qlc["pid"])
 			}
 		}
+
 		pids.push(spawner.spawn('bash', ['-c', './cleanup.sh']).pid)
 		pd_running = false
 		qlc_running = false
 	}
+
 	if ( pd_running == true && qlc_running == false ) {
-		console.log("qlc down")
-		console.log("starting qlc")
-		qlc_running = true
+		// console.log("qlc down")
+		// console.log("starting qlc")
+		// qlc_running = true
 		// if (qlctimeout) clearTimeout(qlctimeout)
 		// qlctimeout = setTimeout(function(){qlc = qlcplus()},15000)
 	}
@@ -298,12 +306,15 @@ function ls(search) {
 		string=string.split(/\r?\n/)
 		for( var i = 0; i < string.length; i++) {
 			if ( string[i].length > 0 ) {
+				console.log(string[i])
 				var tty = {
 					"tty":string[i],
 					"vendor":"",
 					"device":""
 				}
+
 				udev(tty)
+
 				check_ttys.push(string[i])
 			}
 		}
@@ -505,7 +516,7 @@ function presenter_click(array){
 }
 
 
-socat("a")
+// socat("a")
 
 function socat(id) {
 	var tty = id || false
@@ -614,8 +625,8 @@ function setupPlayer(argument) {
 
 	if ( player["player"].process ) {
 
-		console.log("something's not up.")
-		clearTimeout(somethingsup)
+		// console.log("something's not up.")
+		// clearTimeout(somethingsup)
 
 		player["player"].process.stdout.on('data', (data) => {
 			var decoder = new StringDecoder('utf-8')
@@ -652,7 +663,7 @@ function setupPlayer(argument) {
 		console.log("playback ended")
 		cleanPID(pid)
 
-		somethingSUP();
+		// somethingSUP();
 
 
 	}.bind(null, pid))

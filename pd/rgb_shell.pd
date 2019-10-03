@@ -10,11 +10,11 @@
 #X obj 805 176 int;
 #X floatatom 805 201 5 0 0 0 - - -, f 5;
 #X obj 848 63 vsl 20 100 0 255 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 0 1;
+-1 -1 9900 1;
 #X obj 848 176 int;
 #X floatatom 848 201 5 0 0 0 - - -, f 5;
 #X obj 888 63 vsl 20 100 0 255 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 7571 1;
+-1 -1 9124 1;
 #X obj 888 176 int;
 #X floatatom 888 201 5 0 0 0 - - -, f 5;
 #X obj 848 234 t b f;
@@ -59,7 +59,7 @@
 #X msg -7 1632 leftbottom;
 #X msg 4 -299 lefttop;
 #X obj 779 809 spigot;
-#X obj 812 757 tgl 28 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 812 757 tgl 28 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 872 838 t b;
 #X obj 872 892 s shell_stop;
@@ -85,7 +85,7 @@
 #X obj 711 297 delay 1000;
 #X obj 1143 389 spigot;
 #X obj 1196 347 tgl 28 0 empty empty empty 17 7 0 10 -262144 -1 -1
-1 1;
+0 1;
 #X obj 1234 314 r shell_stop;
 #X msg 1196 314 1;
 #X obj 1196 261 r loadbang_d;
@@ -100,6 +100,7 @@
 #X obj 1159 770 print ttySetup;
 #X obj 1047 743 print shell;
 #X obj 1054 427 s \$0-device;
+#X obj 1311 553 print d;
 #X connect 0 0 19 0;
 #X connect 0 0 68 0;
 #X connect 1 0 0 0;
@@ -193,8 +194,10 @@
 #X connect 85 0 91 0;
 #X connect 85 0 93 0;
 #X connect 86 0 85 0;
+#X connect 87 0 88 0;
 #X connect 88 0 86 0;
 #X connect 89 0 88 0;
 #X connect 90 0 86 1;
 #X connect 90 0 87 0;
+#X connect 90 0 95 0;
 #X connect 91 0 92 0;
